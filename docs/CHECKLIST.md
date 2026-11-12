@@ -50,3 +50,6 @@ Prasyarat umum: Docker + Compose v2, `.env` hasil salin `.env.example` (isi `POS
 | 9 | Persistensi setelah restart | `docker compose down` → `docker compose up -d` → hitung `sales` | Data sama; log db: "Skipping initialization" | **lulus** |
 | 10 | Reset data demo | `docker compose down -v && docker compose up --build -d` | 4 transaksi demo (3 lunas, 1 menunggu) | **tertunda** (tidak dijalankan ulang) |
 | 11 | Responsif/aksesibilitas visual | Buka di lebar 375 px dan desktop | Tata letak tidak patah, kontrol dapat dipakai keyboard | **tertunda** |
+| 12 | Uji beban (≥ 50 pengguna, ≤ 2 detik) | `node scripts/load.mjs http://localhost:8088` | `Galat: 0`, `Maksimum` ≤ 2000 ms, `LULUS`, kode keluar 0 | **lulus** (2026-11-12: 1.500 permintaan, maks 250 ms) |
+| 13 | Backup & pemulihan | `./scripts/backup.sh` → daftarkan pelanggan penanda → reset skema → pulihkan (lihat README) → hitung `songs/sales/users` | Jumlah sama dengan saat backup, pelanggan penanda hilang, smoke test lulus | **lulus** (2026-11-12: 8/5/4) |
+| 14 | Backup gagal dengan jelas | `docker compose stop db` → `./scripts/backup.sh` → `docker compose start db` | Pesan galat, kode keluar ≠ 0, tidak ada file baru di `backups/` | **lulus** |

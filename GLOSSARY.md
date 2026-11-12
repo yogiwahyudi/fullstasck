@@ -57,7 +57,7 @@ A Song an Admin has taken out of the Catalogue because it already has Sales. It 
 
 **Preview** (_Cuplikan_):
 A short public excerpt of a Song, playable by anyone including Visitors.
-_Avoid_: Sample, snippet, trailer
+_Avoid_: Sample, snippet, trailer, Trial
 
 **Full Song**:
 The complete MP3 of a Song, playable and downloadable only by a Customer who owns it.
