@@ -1,6 +1,6 @@
 # Grilling: MusicPedia vs Software Request (2026-11-12)
 
-Status: **round 1 asked, no answers yet**. Nothing in GLOSSARY.md, ADRs, or code has been changed.
+Status: **rounds 1–2 answered (all recommendations accepted); frontier empty, waiting on the user to confirm before implementation**. GLOSSARY.md updated for Q2; no code changed.
 
 Source compared: `../../../../Software Request - 26102023.pdf` (sponsor: VP Business Development, PT Musika Indonesia) against `GLOSSARY.md`, `docs/adr/0001-retire-songs-with-sales.md`, and the current build.
 
@@ -34,4 +34,17 @@ Q2–Q8 assume Q1 = yes.
 
 ## Answers
 
-_(pending)_
+Round 1: user accepted every recommendation (Q1–Q8 "yes").
+- Q2 applied: "Trial" added to Preview's _Avoid_ list in GLOSSARY.md.
+- Q3–Q6: the glossary already matches (Customer Profile editable by owner or Admin; per-Song purchase, no membership; Song is the only sellable thing; Genre the only category).
+- Q7, Q8: documentation/implementation work, waiting on round 2 details.
+
+## Round 2
+
+**Q9 – Load check pass criterion.** ➡️ Node script (no new deps) in `scripts/`, run via the frontend origin: 50 concurrent virtual users × 10 iterations over catalogue list, search, and song detail. Pass = zero errors and **max** response ≤ 2 s (the PDF says "tidak lebih dari"); also report p95.
+
+**Q10 – Backup mechanism.** ➡️ `scripts/backup.sh` (docker compose exec db pg_dump → timestamped file in `backups/`, gitignored) plus a documented restore command that is actually tested once; scheduling via host cron documented, no extra compose service.
+
+**Q11 – "Dapat digunakan oleh semua perangkat lunak lainnya".** ➡️ Read as: works in any modern browser on any OS, and other systems can integrate through the REST API. Status: met.
+
+**Q12 – Where the use case map and NFR table live.** ➡️ Two new sections in README.md (Indonesian, matching the rest of the docs): a use case table mapping the PDF diagram → app, with *Memutar & Mengunduh Lagu* marked as added; and the NFR status table. No ADR (none of these is hard to reverse).
